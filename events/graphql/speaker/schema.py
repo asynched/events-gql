@@ -9,8 +9,10 @@ class SpeakerType(DjangoObjectType):
     social_media = graphene.Field(SpeakerSocialMediaType)
 
     def resolve_social_media(self, info):
-        return SpeakerSocialMedia.objects.get(speaker=self.id)
-
+        try:
+            return SpeakerSocialMedia.objects.get(speaker=self.id)
+        except SpeakerSocialMedia.DoesNotExist:
+            return None
     class Meta:
         model = Speaker
         exclude = ("speakersocialmedia",)
