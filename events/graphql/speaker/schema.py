@@ -13,9 +13,13 @@ class SpeakerType(DjangoObjectType):
             return SpeakerSocialMedia.objects.get(speaker=self.id)
         except SpeakerSocialMedia.DoesNotExist:
             return None
+
     class Meta:
         model = Speaker
-        exclude = ("speakersocialmedia",)
+        exclude = (
+            "speakersocialmedia",
+            "keynotespeaker_set",
+        )
 
 
 class SpeakerQueries(graphene.ObjectType):
